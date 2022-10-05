@@ -1,0 +1,27 @@
+h1 {
+    background-color: grey;
+}
+ul{
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+     overflow: hidden;
+ }
+li{
+    float: left;
+}
+a:link, a:visited {
+    display: flow;
+    width:100px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #98bf21;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+ol {
+    font-size: 25px;
+    padding-bottom: 20px;
+}
