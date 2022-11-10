@@ -1,0 +1,7 @@
+Changes that I have done to the bootstrap midterm- 
+I added the figcaption tag so that I can have a caption that is under the image and it doesnt wrap. 
+I removed the table from the div tag that contains the picture so that the table is now right next to the big sale image. 
+I also added the blue border behind the big sale image and the red box all the way to the right. 
+Styled the text in the footer with internal styling 
+instead of using <span> to change to the font color i used the td style tag to change the color. 
+I made the col responive by adding col-lg 4 to all of them and then col-md 6 to the table and col-md 3 for the other two 

@@ -1,0 +1,56 @@
+internet VS WWW -- The difference is that the internet has been around longer, you are able to browse around and do other stuff on the internet. 
+People used to use FTP, the WWW is a service on the internet. 
+
+html-
+
+http Vs FTP- 
+
+ftp and our web server- 
+
+URL- The path of where your file is. 
+
+how html works-- <!DOCTYPE html> A comment that the browser reads; to use the most current version of HTML
+rules of HTML-- Every tag needs to have a class tag. 
+Lots of tags such as
+head - Just information -- Meta means about- infromation about the document. Links to CSS; Links to JavaSCript
+body- the actual content of the website. 
+title- goes in the tabs document 
+links -- Learn how the linking works; whats clickabble and stuff 
+lists
+tables 
+image formats- JPEG- Lossy  PNG-Lossless  GIF- 256 colors; smaller compresses better 
+img tag
+block vs inline
+colors
+span vs div -- The span tag gives in-Line styling -- div is a block tag 
+em vs rem-- rem- if the font is 10 the rem font would be 15; em-- is based on the parent element. If it is in a div tag then it would be on that div tag
+semantic tags- Footer; nav; header; 
+
+
+grid and how it works. How to set it up. How create coloumns
+
+Inline, embedded, external- ways to create style sheets. 
+css
+class
+id
+cascading
+how it works 
+padding- would be 20 all around; unless specified. 20px 10px; 20 on the top and the bottom; and 10 on the left on the right. 
+Top right bottom left. 
+
+box model  and how containers work
+positioning- how it works 
+s
+bootstrap. what is it. Why use it. Various components such as nav bars, grid, jumbotrons, footers
+grid - its a standardization method. 
+
+media queries 
+javascript - some of the datatypes you can check for- string and numbers. 
+Values- undefined and null, NaN, what the differences are 
+undefined- never has been assigned a value 
+null- it means no value 
+NaN- the result of a mathematical operations, such as strings; expeceted a number and didnt get a number 
+HTML; CSS; and JavaScript-- It is all ran on the browser. 
+ - What is it. 
+ - JS Basics such as variable types, accessing DOM data and setting dom data
+ - Getting data from text areas and setting event handlers

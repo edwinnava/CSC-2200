@@ -23,19 +23,6 @@
       let uName = document.getElementById("uName").value;
       let uPrice = document.getElementById("uPrice").value;
       let uState = document.getElementById("uState").value;
-      // let nfp = document.querySelector('nfp')
-      let nfp = document.querySelector('input[name="nfp"]:checked');
-      let gotNFP = false;
-      if(nfp != null){
-        gotNFP = true;
-      }
-      alert(gotNFP)
-      // if(nfp == null){
-      //   alert("Null");
-      // }else{
-      //   alert("not Null");
-      // }
-      // alert(nfp);
       console.log(`uState:${uState}`);
       // /let aintThere = document.getElementById("Blah").value;
       // console.log("----------------")
@@ -44,15 +31,10 @@
       // Create an object literal called uVals
       //let nfp = document.getElementById('nfp').checked;
 
-      let rad1 = document.querySelector('input[name="rad1"]:checked').value;
-      alert(`rad1:${rad1}`);
       let uVals = {
         'uName' : uName,
         'uPrice' : uPrice,
-        'uState' : uState,
-        'rad1' : rad1,
-        'gotNFP' : gotNFP
-
+        'uState' : uState
       }
       return uVals;
     }
@@ -66,7 +48,7 @@
       // }
       // console.log( xVar );
       // xVar = null;
-      // if ( xVar == null )
+      // if ( xVar == null ) {
       //   alert("Null is ok");
       // } else {
       //   alert("No nothing for you");
@@ -99,16 +81,10 @@
       let uResults = document.getElementById("uResults");
       let oStr = "<span style='color:black'>";
       oStr += "<ol>";
-      let dollars = Intl.NumberFormat('en-US');
-
-
-
-      oStr += "<li>Your total Cost is $ " + dollars.format(totalCost) + "</li>";
+      oStr += "<li>Your total Cost is " + totalCost + "</li>";
       oStr += `<li> Tax for the state: ${uIn.uState} </li>`;
-      oStr += `<li> Shipping Method: ${uIn.rad1} </li>`;
       oStr += "</ol> </span>";
       uResults.innerHTML = oStr;
-
     }
     function calcTotal( uIn ){
       let sTax = {
@@ -117,29 +93,17 @@
         IO  : .06,
         WI  : .065
       };
-      let ship = {
-        'Standard' : 1.00,
-        '1Day' : 3.00,
-        '2Day' : 2.00
-      };
-      let sSel = uIn.rad1;
-      let sCost = 0;
-      if ( !uIn.gotNFP ){
-        sCost = ship[sSel];
-      }
-      console.log(`sCost:${sCost}`);
-
       let sCode = uIn.uState;
       let tax = sTax[sCode];
-      // console.log( `tax:${tax} sCode:${sCode}`);
+      console.log( `tax:${tax} sCode:${sCode}`);
       // let oTax = sTax.WI;
       // //oTax = sTax['IN'];
-      //oTax = sTax.sCode; // THis is not good
-      //  console.log( `tax:${oTax} IN`);
-      let uPrice = parseFloat(uIn.uPrice);
-      // alert( uPrice );
+     //oTax = sTax.sCode; // THis is not good
+     //  console.log( `tax:${oTax} IN`);
+      let uPrice = parseInt(uIn.uPrice);
+      alert( uPrice );
 
-      let totalCost = uPrice + (tax*uPrice) + sCost;
+      let totalCost = uPrice + (tax*uPrice);
       return totalCost;
     }
   </script>
@@ -179,10 +143,10 @@
     <div class="form-group">
       <label for="uState">State</label>
       <select name="state" id="uState" size="2"/>
-      <option value="IL"/> Illinois </option>
-      <option value="IO"/> Iowa </option>
-      <option value="IN"/> Indiana </option>
-      <option value="WI"/> Wisconsin </option>
+             <option value="IL"/> Illinois </option>
+            <option value="IO"/> Iowa </option>
+            <option value="IN"/> Indiana </option>
+           <option value="WI"/> Wisconsin </option>
       </select>
     </div>
     <div class="form-group">
