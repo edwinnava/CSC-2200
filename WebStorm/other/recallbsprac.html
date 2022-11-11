@@ -1,13 +1,259 @@
-<!DOCTYPEhtml>
-<html lang='en'>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title> My Second Page </title>
-    <style type="text/css">
-        * { color: red; font-size: 15pt;}
-        span.one{ color:rgb(0,0,255); }
+    <title>Papa Paulies Pizza</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        .navbar-custom {
+            background-color: #98bf21;
+            height: 75px;
+            margin-bottom: 40px;
+        }
     </style>
-<body>
-<span class='one'>What time is it?  </span>
-Time to go!
+
+    <script>
+        let toppingInfo = {
+            'Onions'  : 2.99,
+            'Pepperoni'  : 3.99,
+            'Sausage'  : 4.99,
+            'ExtraCheese' : 2.00
+        };
+
+        let zipInfo = [
+            { 'zip' : 60600, 'Cost' : 2.99},
+            { 'zip' : 60601, 'Cost' : 2.99},
+            { 'zip' : 60602, 'Cost' : 2.99},
+            { 'zip' : 60603, 'Cost' : 2.99},
+            { 'zip' : 60604, 'Cost' : 3.99},
+            { 'zip' : 60605, 'Cost' : 3.99},
+            { 'zip' : 60606, 'Cost' : 3.99},
+            { 'zip' : 60607, 'Cost' : 4.99},
+            { 'zip' : 60608, 'Cost' : 5.99},
+            { 'zip' : 60609, 'Cost' : 6.99}
+        ];
+
+        let pizzaInfo = [
+            { 'Size' : '---Select---', 'Code' : 'NS', 'Cost' : 0},
+            { 'Size' : 'Extra Large', 'Code' : 'EX', 'Cost' : 16.99},
+            { 'Size' : 'Large', 'Code' : 'LG', 'Cost' : 14.99},
+            { 'Size' : 'Medium', 'Code' : 'MD', 'Cost' : 12.99},
+            { 'Size' : 'Small', 'Code' : 'SM', 'Cost' : 10.99}
+        ];
+
+        function setOptions() {
+            let nameText = document.getElementById("uName");
+            let sizeDesc = document.getElementById("sizeDesc");
+            let sizeCost = document.getElementById("sizeCost");
+            let topDesc = document.getElementById("topDesc");
+            let topCost = document.getElementById("topCost");
+            let delDesc = document.getElementById("deliveryDesc");
+            let delCost = document.getElementById("deliveryCost");
+            let totalCost = document.getElementById("totalCost");
+            let uSize = document.getElementById('uSize');
+
+            sizeDesc.innerHTML = "No Selection";
+            topDesc.innerHTML = "No Selection";
+            delDesc.innerHTML = "No Selection";
+            sizeCost.innerHTML = "0";
+            topCost.innerHTML = "0";
+            delCost.innerHTML = "0";
+            totalCost.innerHTML = "0";
+            nameText.value = "";
+
+            let toppingSelections = document.querySelectorAll('input[name="topping"]:checked');
+            toppingSelections.forEach(topping => {
+                topping.checked = false;
+            });
+
+            let deliverySelections = document.querySelectorAll('input[name="deliveryMethod"]:checked');
+            deliverySelections.forEach(delivery => {
+                delivery.checked = false;
+            });
+
+            for (let i=0; i<pizzaInfo.length; i++) {
+                let opt = document.createElement('option');
+                opt.value = pizzaInfo[i].Code;
+                opt.innerHTML = pizzaInfo[i].Size;
+                uSize.appendChild(opt);
+            }
+        }
+
+        function updateSizeInfo() {
+            let sizeDesc = document.getElementById("sizeDesc");
+            let sizeCost = document.getElementById("sizeCost");
+            let pizzaSize = document.getElementById("uSize").value;
+
+            pizzaInfo.forEach(size => {
+                if (size.Code == "NS") {
+                    sizeDesc.innerHTML = "No Selection";
+                    sizeCost.innerHTML = size.Cost;
+                } else if (size.Code == pizzaSize) {
+                    sizeDesc.innerHTML = size.Size;
+                    sizeCost.innerHTML = size.Cost;
+                }
+            });
+        }
+
+        function updateToppingsInfo() {
+            let topDesc = document.getElementById("topDesc");
+            let topCost = document.getElementById("topCost");
+            let totalCost = 0;
+            let first = true;
+            topDesc.innerHTML = "No Selection";
+
+            let toppingSelections = document.querySelectorAll('input[name="topping"]:checked');
+            toppingSelections.forEach(topping => {
+                if (first) {
+                    topDesc.innerHTML = topping.value;
+                    first = false;
+                } else {
+                    topDesc.innerHTML += ", " + topping.value;
+                }
+                totalCost += toppingInfo[topping.id];
+            });
+            topCost.innerHTML = totalCost;
+        }
+
+        function updateDeliveryInfo() {
+            let delDesc = document.getElementById("deliveryDesc");
+            let delCost = document.getElementById("deliveryCost");
+            let uZip = document.getElementById("uZip");
+
+            let deliverySelections = document.querySelectorAll('input[name="deliveryMethod"]:checked');
+            deliverySelections.forEach(delivery => {
+                delDesc.innerHTML = delivery.id;
+                if (delivery.id == "Pickup") {
+                    delCost.innerHTML = "0";
+                    let zipList = document.getElementById("uZip");
+                    for (let i = zipList.options.length - 1; i>=0; i--) {
+                        zipList.remove(i);
+                    }
+                } else if (delivery.id == "Delivery") {
+                    alert("Please select you zip code.");
+                    for (let i=0; i<zipInfo.length; i++) {
+                        let opt = document.createElement('option');
+                        opt.value = zipInfo[i].zip;
+                        opt.innerHTML = zipInfo[i].zip;
+                        uZip.appendChild(opt);
+                    }
+                }
+            });
+        }
+
+        function findDeliveryCost() {
+            let delDesc = document.getElementById("deliveryDesc");
+            let delCost = document.getElementById("deliveryCost");
+            let delStr = document.getElementById("Delivery").id;
+            let uZip = document.getElementById("uZip").value;
+
+            zipInfo.forEach(zipCode => {
+                if (zipCode.zip == uZip) {
+                    delDesc.innerHTML = `${delStr} (Zip: ${zipCode.zip})`;
+                    delCost.innerHTML = zipCode.Cost;
+                }
+            });
+        }
+
+        function updateTotalCost() {
+            let sizeCost = parseFloat(document.getElementById("sizeCost").innerHTML);
+            let topCost = parseFloat(document.getElementById("topCost").innerHTML);
+            let delCost = parseFloat(document.getElementById("deliveryCost").innerHTML);
+            let totalCost = document.getElementById("totalCost");
+            let cost = sizeCost + topCost + delCost;
+            cost = cost.toFixed(2);
+            totalCost.innerHTML = cost;
+        }
+    </script>
+
+</head>
+<body onLoad="setOptions()">
+<div class="navbar-custom"></div>
+
+<div class="container mt-3">
+    <h2> Papa Paulie's Pizza</h2>
+    <form>
+        <div class="form-group">
+            <label for="uName">
+                <h5>Name</h5>
+            </label>
+            <input type="text" class="form-control" id="uName" placeholder="Enter Name">
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="uSize">
+                <h5>Size:</h5>
+            </label>
+            <select name="size" id="uSize" size="1" onchange="updateSizeInfo(), updateTotalCost()"/></select>
+        </div>
+        <br/>
+        <h5>Toppings</h5>
+        <div class="form-group form-check">
+            <input type="checkbox" name="topping" id="Onions" value="Onions" onclick="updateToppingsInfo(), updateTotalCost()"/>
+            <label class="form-check-label"  for="Onions">Onions</label>
+            <br/>
+            <input type="checkbox" name="topping" id="Sausage" value="Sausage" onclick="updateToppingsInfo(), updateTotalCost()"/>
+            <label class="form-check-label"  for="Sausage">Sausage</label>
+            <br/>
+            <input type="checkbox" name="topping" id="Pepperoni" value="Pepperoni" onclick="updateToppingsInfo(), updateTotalCost()"/>
+            <label class="form-check-label"  for="Pepperoni">Pepperoni</label>
+            <br/>
+            <input type="checkbox" name="topping" id="ExtraCheese" value="Extra Cheese" onclick="updateToppingsInfo(), updateTotalCost()"/>
+            <label class="form-check-label"  for="ExtraCheese">Extra Cheese</label>
+        </div>
+        <br/>
+        <h5>Delivery Options</h5>
+        <div class="form-group form-check">
+            <input type="radio" name="deliveryMethod" id="Pickup" onclick="updateDeliveryInfo(), updateTotalCost()"/>
+            <label class="form-check-label" for="Pickup">Pick Up</label>
+            <br/>
+            <input type="radio" name="deliveryMethod" id="Delivery" onclick="updateDeliveryInfo(), updateTotalCost()"/>
+            <label class="form-check-label" for="Delivery">Delivery</label>
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="uZip">
+                <h5>Zip</h5>
+            </label>
+            <br/>
+            <select name="zip" id="uZip" size="3" onchange="findDeliveryCost(), updateTotalCost()"/></select>
+        </div>
+    </form>
+    <br/>
+    <div>
+        <table class="table">
+            <thead class="table-active">
+            <th>Order Description</th>
+            <th>Selection(s)</th>
+            <th>Cost</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Pizza Size</td>
+                <td id="sizeDesc"></td>
+                <td id="sizeCost"></td>
+            </tr>
+            <tr>
+                <td>Toppings</td>
+                <td id="topDesc"></td>
+                <td id="topCost"></td>
+            </tr>
+            <tr>
+                <td>Delivery</td>
+                <td id="deliveryDesc"></td>
+                <td id="deliveryCost"></td>
+            </tr>
+            </tbody>
+            <thead class="table-active">
+            <th></th>
+            <th>Total Cost</th>
+            <th id="totalCost"></th>
+            </thead>
+        </table>
+    </div>
+</div>
 </body>
 </html>

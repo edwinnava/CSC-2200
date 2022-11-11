@@ -33,10 +33,15 @@
             selDel.options.selectedIndex = 0;
 
             if (document.getElementById('Delivery').checked) {
+                alert("Select ZIP")
                 for (let i = 0; i < zipInfo.length; i++) {
                     selDel.options[selDel.options.length] = new Option(zipInfo[i].zip);
                 }
-            } return false;
+            } else if (document.getElementById('Pickup').checked) {
+                for (let i = zipInfo.length - 1; i>=0; i--)
+                    selDel.options[selDel.options.length] = new Option(zipInfo[i].remove);
+                //Tried this to get the zip to go away
+            }
         }
 
         function getUInput() {
@@ -301,7 +306,7 @@
         <div class="form-group form-check">
             <label>Delivery:</label>
             Pickup: <input type="radio" name="rad1" id="Pickup" value="Pickup" checked />
-            Delivery: <input type="radio" name="rad1" id="Delivery" value="Delivery" onclick="popZip()" />
+            Delivery: <input type="radio" name="rad1" id="Delivery" value="Delivery" onclick="popZip()"  />
         </div>
         <button type="button" class="btn btn-primary" onClick="calcCosts();">Submit</button>
         <div class="form-group">
